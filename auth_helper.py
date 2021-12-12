@@ -32,7 +32,7 @@ class info:
         else:
             return "false"
 class gen:
-    def gen_license(seller_key: str,expiration: int, mask: str, level: int, amount: int):
+    def gen_license(seller_key: str,expiration: int, mask: str, level: int, amount: int): # generate a license
         if expiration == None:
             expiration = 1
         if mask == None:
@@ -53,14 +53,14 @@ class gen:
             return '\n'.join(map(str, keys))
         else:
             return "false"
-    def gen_var(seller_key: str, var_name: str, var_value: str):
+    def gen_var(seller_key: str, var_name: str, var_value: str): # make a app var
         url = seller_builder(seller_key, f"addvar&name={var_name}&data={var_value}")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False
-    def gen_sub(seller_key: str, sub_name: str, sub_level: int):
+    def gen_sub(seller_key: str, sub_name: str, sub_level: int): # generate a sub
         random_subnames = ["my","balls","itch","can","you","scratch","them","im","totally","not","gay"]
         if sub_level == None:
             sub_level = 1
@@ -72,14 +72,14 @@ class gen:
             return True
         else:
             return False
-    def add_hwid(seller_key: str, username: str, hwid: str):
+    def add_hwid(seller_key: str, username: str, hwid: str): # add a hwid to a user
         url = seller_builder(seller_key,f"addhwiduser&user={username}&hwid={hwid}")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False
-    def add_file(seller_key: str,file_url: str):
+    def add_file(seller_key: str,file_url: str): # add a file
         url = seller_builder(seller_key, f"upload&url={file_url}")    
         res = requests.get(url)
         if res.status_code == 200:
@@ -88,56 +88,56 @@ class gen:
             return False
     
 class misc:
-    def verify_license(seller_key: str, license: str):
+    def verify_license(seller_key: str, license: str): # check if that license exists
         url = seller_builder(seller_key, f"verify&key={license}")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False
-    def verify_user(seller_key: str, user: str):
+    def verify_user(seller_key: str, user: str): # check if that user exists
         url = seller_builder(seller_key, f"verify&user={user}")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False 
-    def activate_license(seller_key: str, key: str, username: str, password: str):
+    def activate_license(seller_key: str, key: str, username: str, password: str): # activate a licesne
         url = seller_builder(seller_key, f"activate&user={username}&key={key}&pass={password}")  
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False   
-    def delete_license(seller_key: str, key: str):
+    def delete_license(seller_key: str, key: str): # delete key
         url = seller_builder(seller_key, f"del&key={key}")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False
-    def delete_user(seller_key: str, username: str):
+    def delete_user(seller_key: str, username: str): # delete user
         url = seller_builder(seller_key, f"deluser&user={username}")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False
-    def delete_unused_keys(seller_key: str):
+    def delete_unused_keys(seller_key: str): # delete unused licenses
         url = seller_builder(seller_key, "delunused")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False
-    def delete_expr_users(seller_key: str):
+    def delete_expr_users(seller_key: str): # deletes expired users
         url = seller_builder(seller_key, "delexpusers")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False
-    def delete_all_keys(seller_key: str):
+    def delete_all_keys(seller_key: str): # deletes all keys
         url = seller_builder(seller_key, "delalllicenses")
         res = requests.get(url)
         if res.status_code == 200:
@@ -163,24 +163,60 @@ class moderation:
             return True
         else:
             return False
-    def blacklist(seller_key: str, ip: str, hwid: str):
+    def blacklist(seller_key: str, ip: str, hwid: str): # blacklist a user/hwid
         url = seller_builder(seller_key, f"black&ip={ip}&hwid={hwid}")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False
-    def hwid_reset(seller_key: str, username: str):
+    def hwid_reset(seller_key: str, username: str): # resets the hwid
         url = seller_builder(seller_key, f"resetuser&user={username}")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False
-    def reset_pw(seller_key: str, username: str):
+    def reset_pw(seller_key: str, username: str): # this option doesnt even work well
         url = seller_builder(seller_key, f"resetpw&user={username}")
         res = requests.get(url)
         if res.status_code == 200:
             return True
         else:
             return False
+    def set_user_var(seller_key: str, username: str, var_name: str, var_value: str): # sets user variable
+        url = seller_builder(seller_key, f"setvar&user={username}&var={var_name}&data={var_value}")
+        res = requests.get(url)
+        if res.status_code == 200:
+            return True
+        else:
+            return False
+    def set_all_users_var(seller_key: str, var_name: str, var_value: str): # sets user variable
+        url = seller_builder(seller_key, f"setvar&user=all&var={var_name}&data={var_value}")
+        res = requests.get(url)
+        if res.status_code == 200:
+            return True
+        else:
+            return False
+    #def get_user_var(seller_key: str, username: str, var_name: str): got commented out since i dont know the response, ik i can get the response but i dont use users and im too lazy to test
+     #   url = seller_builder(seller_key, f"getvar&user={username}&var={var_name}")
+      #  res = requests.get(url)
+       # if res.status_code == 200:
+        #    return True
+        #else:
+         #   return False
+    def edit_app_var(seller_key: str, var_id: str, new_var_value: str):
+        url = seller_builder(seller_key, f"editvar&varid={var_id}&data={new_var_value}")
+        res = requests.get(url)
+        if res.status_code == 200:
+            return True
+        else:
+            return False
+    def del_all_vars(seller_key: str): # sets user variable
+        url = seller_builder(seller_key, f"delallvars")
+        res = requests.get(url)
+        if res.status_code == 200:
+            return True
+        else:
+            return False
+    
