@@ -2,7 +2,7 @@ import json
 import requests
 import random
 
-def seller_builder(sellerkey: str,params: str):
+def seller_builder(sellerkey: str,params: str): # makes my life easier
     url = f"https://keyauth.com/api/seller/?sellerkey={sellerkey}&type={params}"
     return url
 
