@@ -1,2 +1,2 @@
 # Keyauth Seller Api Wrapper
- Keyauth Seller Api Python Wrapper
+ I was gonna use this for personal use but why not release it
